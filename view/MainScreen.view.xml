@@ -87,7 +87,8 @@
 <!-- 			<l:FixFlex class="fixFlexVertical">
 				<l:flexContent> -->
 					<vbm:AnalyticMap id="worldMap" height="125%" width="125%" regionClick="onRegionClick" regionSelect="handleSelect"
-						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout">
+						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout"
+						initialPosition="0;10;0">
 						<vbm:regions>
 							<vbm:Region code="{code}" color="{colour}"></vbm:Region>
 						</vbm:regions>
