@@ -82,24 +82,16 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-			<l:FixFlex class="fixFlexVertical">
-				<l:flexContent>
+<!-- 			<l:FixFlex class="fixFlexVertical">
+				<l:flexContent> -->
 					<vbm:AnalyticMap id="worldMap" height="125%" width="125%" regionClick="onRegionClick" regionSelect="handleSelect"
 						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout">
 						<vbm:regions>
 							<vbm:Region code="{code}" color="{colour}"></vbm:Region>
 						</vbm:regions>
-						<!--<vbm:legend>-->
-						<!--	<vbm:Legend id="legend" caption="Legend">-->
-						<!--		<vbm:LegendItem text="Corona Cases Greater Than 100K" color="rgb(255,0,0)"/>-->
-						<!--		<vbm:LegendItem text="Corona Cases Between 50K & 100K" color="rgb(128,0,0)"/>-->
-						<!--		<vbm:LegendItem text="Corona Cases Between 10K & 50K" color="rgb(255,255,0)"/>-->
-						<!--		<vbm:LegendItem text="Corona Cases Less Than 10K"  color="rgb(0,255,0)"/>-->
-						<!--	</vbm:Legend>-->
-						<!--</vbm:legend>-->
 					</vbm:AnalyticMap>
-				</l:flexContent>
-			</l:FixFlex>
+<!-- 				</l:flexContent>
+			</l:FixFlex> -->
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Button id="backToTable" icon="sap-icon://back-to-top" tooltip="Return to Table" enabled="true" press="onReturn"/>
