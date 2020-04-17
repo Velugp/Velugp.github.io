@@ -952,7 +952,7 @@ sap.ui.define([
 		},
 
 		onMapPress: function () {
-			this.byId("backToTable").focus();
+			this.byId("backToTable").focus();   
 		}		
 
 	});
