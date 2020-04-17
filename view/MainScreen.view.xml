@@ -84,20 +84,16 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-			<l:FixFlex class="fixFlexVertical">
-				<l:flexContent>
-				<vk:ContainerContent title="Analytic Map" icon="sap-icon://choropleth-chart">
-				<vk:content>	
+<!-- 			<l:FixFlex class="fixFlexVertical">
+				<l:flexContent> -->
 					<vbm:AnalyticMap id="worldMap" height="125%" width="125%" regionClick="onRegionClick" regionSelect="handleSelect"
 						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout">
 						<vbm:regions>
 							<vbm:Region code="{code}" color="{colour}"></vbm:Region>
 						</vbm:regions>
-					</vbm:AnalyticMap>
-			 	</vk:content>
-				</vk:ContainerContent>		
-				</l:flexContent>
-			</l:FixFlex>
+					</vbm:AnalyticMap>	
+<!-- 				</l:flexContent>
+			</l:FixFlex> -->
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Button id="backToTable" icon="sap-icon://back-to-top" tooltip="Return to Table" enabled="true" press="onReturn"/>
