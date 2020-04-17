@@ -1,7 +1,7 @@
 sap.ui.define([
 		"sap/ui/core/UIComponent",
 		"sap/ui/Device",
-		"fiori/model/models"
+		"fiori/models"
 	], function (UIComponent, Device, models) {
 		"use strict";
 
