@@ -112,7 +112,13 @@
 			</f:SimpleForm>
 		</content>
 		<footer>
-			<Bar/>
+			<Bar>
+				<contentRight>
+					<Button text="Table" type="Transparent" icon="sap-icon://table-view" press="onTablePress"></Button>
+					<Button text="Map" type="Transparent" icon="sap-icon://map" press="onMapPress"></Button>
+					<Button text="Pie" type="Transparent" icon="sap-icon://pie-chart" press="onPiePress"></Button>
+				</contentRight>
+			</Bar>
 		</footer>
 	</Page>
 </mvc:View>
