@@ -941,7 +941,18 @@ sap.ui.define([
 
 		onReturn: function () {
 			this.byId("btnIndia").focus();
-		}
+		},
+		
+		onTablePress: function () {
+			this.byId("btnIndia").focus();
+		},
 
+		onPiePress: function () {
+			this.byId("backToTable").focus();
+		},
+
+		onMapPress: function () {
+			this.byId("backToTable").focus();
+		}		
 	});
 });
