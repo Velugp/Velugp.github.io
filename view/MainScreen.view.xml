@@ -84,8 +84,8 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-<!-- 			<l:FixFlex class="fixFlexVertical">
-				<l:flexContent> -->
+			<l:FixFlex class="fixFlexVertical">
+				<l:flexContent>
 					<vbm:AnalyticMap id="worldMap" height="125%" width="125%" regionClick="onRegionClick" regionSelect="handleSelect"
 						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout"
 						initialPosition="0;10;0">
@@ -93,8 +93,8 @@
 							<vbm:Region code="{code}" color="{colour}"></vbm:Region>
 						</vbm:regions>
 					</vbm:AnalyticMap>	
-<!-- 				</l:flexContent>
-			</l:FixFlex> -->
+				</l:flexContent>
+			</l:FixFlex>
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Button id="backToTable" icon="sap-icon://back-to-top" tooltip="Return to Table" enabled="true" press="onReturn"/>
