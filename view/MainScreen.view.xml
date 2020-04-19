@@ -53,10 +53,10 @@
 								</Toolbar>
 							</headerToolbar>
 							<columns>
-								<Column demandPopin="true" minScreenWidth="400px">
+								<Column demandPopin="true">
 									<Label text="Country" design="Bold"/>
 								</Column>
-								<Column demandPopin="true" minScreenWidth="400px">
+								<Column demandPopin="true">
 									<Label text="Total Cases" design="Bold"/>
 								</Column>
 								<Column demandPopin="true" minScreenWidth="400px">
@@ -73,7 +73,7 @@
 								<ColumnListItem type="Navigation" press="tabPress">
 									<cells>
 										<Text text="{country}"/>
-										<ObjectNumber number="{cases}" state="None"/>
+										<ObjectNumber number="{cases}" state="Information"/>
 										<ObjectNumber number="{active}" state="Warning"/>
 										<ObjectNumber number="{deaths}" state="Error"/>
 										<ObjectNumber number="{recovered}" state="Success"/>
