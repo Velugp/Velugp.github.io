@@ -47,7 +47,7 @@
 								<ColumnListItem>
 									<cells>
 										<Text text="{district}"/>
-										<ObjectNumber number="{confirmed}" state="Warning"/>
+										<ObjectNumber number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Warning"/>
 									</cells>
 								</ColumnListItem>
 							</items>
