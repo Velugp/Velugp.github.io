@@ -76,10 +76,10 @@ sap.ui.define([
 				that.barChart();
 			});
 
-			that.byId("numconfirmed").setValue(that.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.cCases));
-			that.byId("numRecovered").setValue(that.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.recovered));
-			that.byId("numDeaths").setValue(that.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.death));
-			that.byId("numActive").setValue(that.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.aCases));
+			that.byId("numconfirmed").setValue(sap.ui.getCore().getModel("stateData").oData.cCases);
+			that.byId("numRecovered").setValue(sap.ui.getCore().getModel("stateData").oData.recovered);
+			that.byId("numDeaths").setValue(sap.ui.getCore().getModel("stateData").oData.death);
+			that.byId("numActive").setValue(sap.ui.getCore().getModel("stateData").oData.aCases);
 
 		},
 
