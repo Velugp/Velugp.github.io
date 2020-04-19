@@ -9,16 +9,6 @@
 		"applicationVersion": {
 			"version": "1.0.0"
 		},
-		"dataSources": {
-			"mainService": {
-				"uri": "/northwind/V2/northwind/northwind.svc/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"localUri": "localService/metadata.xml"
-				}
-			}
-		},
 		"sourceTemplate": {
 			"id": "sap.ui.ui5-template-plugin.1worklist",
 			"version": "1.38.14"
@@ -81,10 +71,6 @@
 				"settings": {
 					"bundleName": "fiori.i18n.i18n"
 				}
-			},
-			"": {
-				"dataSource": "mainService",
-				"preload": true
 			}
 		},
 		"routing": {
