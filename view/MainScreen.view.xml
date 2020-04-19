@@ -25,7 +25,7 @@
 			<f:SimpleForm editable="true">
 				<f:content>
 					<Panel>
-						<Button id="btnIndia" tooltip=" India StateWise Tracker" type="Transparent" press="onPress"
+						<Button id="btnIndia" tooltip="India StateWise Tracker" type="Transparent" press="onPress"
 							icon="https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/in.png" iconFirst="false"/>
 					</Panel>
 				</f:content>
@@ -53,10 +53,10 @@
 								</Toolbar>
 							</headerToolbar>
 							<columns>
-								<Column demandPopin="true">
+								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Country" design="Bold"/>
 								</Column>
-								<Column demandPopin="true">
+								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Total Cases" design="Bold"/>
 								</Column>
 								<Column demandPopin="true" minScreenWidth="400px">
