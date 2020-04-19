@@ -56,10 +56,10 @@
 								<ColumnListItem type="Navigation" press="tabPress">
 									<cells>
 										<Text text="{state}"></Text>
-										<ObjectNumber number="{confirmed}" state="None"></ObjectNumber>
-										<ObjectNumber number="{active}" state="Warning"></ObjectNumber>
-										<ObjectNumber number="{deaths}" state="Error"></ObjectNumber>
-										<ObjectNumber number="{recovered}" state="Success"></ObjectNumber>
+										<ObjectNumber  number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Information"></ObjectNumber>
+										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"></ObjectNumber>
+										<ObjectNumber number="{path:'deaths',formatter:'.formatter.groupNumber'}" state="Error"></ObjectNumber>
+										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"></ObjectNumber>
 									</cells>
 								</ColumnListItem>
 							</items>
