@@ -73,10 +73,10 @@
 								<ColumnListItem type="Navigation" press="tabPress">
 									<cells>
 										<Text text="{country}"/>
-										<ObjectNumber number="{cases}" state="Information"/>
-										<ObjectNumber number="{active}" state="Warning"/>
-										<ObjectNumber number="{deaths}" state="Error"/>
-										<ObjectNumber number="{recovered}" state="Success"/>
+										<ObjectNumber number="{path:'cases',formatter:'.formatter.groupNumber'}" state="Information"/>
+										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"/>
+										<ObjectNumber number="{path:'deaths',formatter:'.formatter.groupNumber'}" state="Error"/>
+										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"/>
 									</cells>
 								</ColumnListItem>
 							</items>
