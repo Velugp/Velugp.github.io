@@ -26,7 +26,7 @@
 				<f:content>
 					<Panel>
 						<Button id="btnIndia" tooltip="India StateWise Tracker" type="Transparent" press="onPress"
-							icon="https://en.wikipedia.org/wiki/Flag_of_India#/media/File:Flag_of_India.svg" iconFirst="false"/>
+							icon="https://github.com/prathik/brick/blob/master/images/flag.png" iconFirst="false"/>
 					</Panel>
 				</f:content>
 			</f:SimpleForm>
