@@ -1,13 +1,12 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="fiori.controller.DistricWiseScreen"
-	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form"
-	xmlns:viz="sap.viz.ui5.controls">
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls">
 	<Page title="District Wise Stats" id="idPage" class="sapUiSizeCompact">
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
 					<HeaderContainer height="19%" width="100%">
 						<TileContent footer="Total Cases" footerColor="Neutral">
-							<NumericContent width="160px" id="numconfirmed" valueColor="Neutral" truncateValueTo="10" formatterValue="true"/>
+							<NumericContent width="160px" id="numConfirmed" valueColor="Neutral" truncateValueTo="10" formatterValue="true"/>
 						</TileContent>
 						<TileContent footer="Recovered Cases" footerColor="Good">
 							<NumericContent id="numRecovered" valueColor="Good" truncateValueTo="10"/>
@@ -18,12 +17,21 @@
 						<TileContent footer="Active Cases" footerColor="Critical">
 							<NumericContent id="numActive" valueColor="Critical" truncateValueTo="10"/>
 						</TileContent>
+						<TileContent footer="Cases Today" footerColor="Critical">
+							<NumericContent id="numTodayCases" valueColor="Neutral" truncateValueTo="10"/>
+						</TileContent>
+						<TileContent footer="Recovered Today" footerColor="Critical">
+							<NumericContent id="numTodayRec" valueColor="Good" truncateValueTo="10"/>
+						</TileContent>
+						<TileContent footer="Death's Today" footerColor="Critical">
+							<NumericContent id="numTodayDea" valueColor="Critical" truncateValueTo="10"/>
+						</TileContent>
 					</HeaderContainer>
 				</f:content>
 			</f:SimpleForm>
 			<f:SimpleForm editable="true">
 				<f:content>
-					<ScrollContainer vertical="true" height="83%">
+					<ScrollContainer vertical="true" height="81%">
 						<Table id="districtTab" items="{path:'/districtModel/districtData',sorter: { path: 'confirmed', descending: true }}" growing="true"
 							growingThreshold="10" sticky="ColumnHeaders,HeaderToolbar" popinLayout="Block">
 							<headerToolbar>
@@ -50,7 +58,19 @@
 								</Column>
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Recovered" design="Bold"/>
-								</Column>																
+								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Today's Count" design="Bold"/>
+								</Column>								
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Today's Cases" design="Bold"/>-->
+								<!--</Column>-->
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Today's Death" design="Bold"/>-->
+								<!--</Column>-->
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Recovered Today" design="Bold"/>-->
+								<!--</Column>-->
 							</columns>
 							<items>
 								<ColumnListItem>
@@ -60,6 +80,9 @@
 										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"/>
 										<ObjectNumber number="{path:'deceased',formatter:'.formatter.groupNumber'}" state="Error"/>
 										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"/>
+										<HBox>
+											<Button icon="sap-icon://check-availability" press="todayCount"></Button>
+										</HBox>
 									</cells>
 								</ColumnListItem>
 							</items>
