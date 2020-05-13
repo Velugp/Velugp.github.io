@@ -42,12 +42,24 @@
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Total Cases" design="Bold"/>
 								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Active Cases" design="Bold"/>
+								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Deceased" design="Bold"/>
+								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Recovered" design="Bold"/>
+								</Column>																
 							</columns>
 							<items>
 								<ColumnListItem>
 									<cells>
 										<Text text="{district}"/>
-										<ObjectNumber number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Warning"/>
+										<ObjectNumber number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Information"/>
+										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"/>
+										<ObjectNumber number="{path:'deceased',formatter:'.formatter.groupNumber'}" state="Error"/>
+										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"/>
 									</cells>
 								</ColumnListItem>
 							</items>
