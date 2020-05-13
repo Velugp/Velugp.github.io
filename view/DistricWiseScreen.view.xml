@@ -1,7 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="fiori.controller.DistricWiseScreen"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form"
 	xmlns:viz="sap.viz.ui5.controls">
-	<Page title="District Wise Stats" id="idPage">
+	<Page title="District Wise Stats" id="idPage" class="sapUiSizeCompact">
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
