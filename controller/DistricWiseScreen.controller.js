@@ -17,28 +17,12 @@ sap.ui.define([
 		 * @memberOf fiori.view.district
 		 */
 		onInit: function () {
+			// Start of add on 13.05.2020	
+			if (!this.oDialog) {
+				this.oDialog = sap.ui.xmlfragment("fiori.Fragment.Dialog", this);
+			}
+			// End of add on 13.05.2020			
 			this.getRouter().getRoute("DistricWiseScreen").attachPatternMatched(this._onObjectMatched, this);
-
-			// var oTab = this.byId("districtTab");
-			// this.oTab = oTab;
-			// var oModel = new sap.ui.model.json.JSONModel();
-			// this.oModel = oModel;
-			// var url = "https://api.covid19india.org/state_district_wise.json";
-			// var oUrl = oModel.loadData(url);
-			// that = this;
-			// oModel.attachRequestCompleted(function (oUrl) {
-			// 	var Data = [];
-			// 	debugger;
-			// 	Data = that.oModel.oData;
-			// 	var district = sap.ui.getCore().getModel("stateData").oData;
-			// 	var districtDat = [];
-			// 	districtDat = Data[sap.ui.getCore().getModel("stateData").oData].districtData;
-			// 	that.oModel.setData({
-			// 		"districtModel": districtDat
-			// 	});
-			// 	that.oTab.setModel(oModel);
-			// });
-
 		},
 
 		_onObjectMatched: function () {
@@ -50,7 +34,6 @@ sap.ui.define([
 			var oUrl = oModel.loadData(url);
 			that = this;
 			oModel.attachRequestCompleted(function (oUrl) {
-				debugger;
 				var Data = [];
 				Data = that.oModel.oData;
 				var district = sap.ui.getCore().getModel("stateData").oData.state;
@@ -60,29 +43,50 @@ sap.ui.define([
 						districtDat = Data[i];
 					}
 				}
-				
+
 				districtDat.districtData.sort(function (a, b) {
 					return b.confirmed - a.confirmed;
-				});				
-				
+				});
+
 				that.oModel.setData({
 					"districtModel": districtDat
 				});
-				
-				
 				that.districtDat = districtDat;
 				that.oTab.setModel(oModel);
-				debugger;
 				that.barChart();
 			});
-
-			that.byId("numconfirmed").setValue(sap.ui.getCore().getModel("stateData").oData.cCases);
+			that.byId("numConfirmed").setValue(sap.ui.getCore().getModel("stateData").oData.cCases);
 			that.byId("numRecovered").setValue(sap.ui.getCore().getModel("stateData").oData.recovered);
 			that.byId("numDeaths").setValue(sap.ui.getCore().getModel("stateData").oData.death);
 			that.byId("numActive").setValue(sap.ui.getCore().getModel("stateData").oData.aCases);
-
+			// Start of add on 13.05.2020
+			that.byId("numTodayCases").setValue(sap.ui.getCore().getModel("stateData").oData.deltaconfirmed);
+			that.byId("numTodayRec").setValue(sap.ui.getCore().getModel("stateData").oData.deltarecovered);
+			that.byId("numTodayDea").setValue(sap.ui.getCore().getModel("stateData").oData.deltadeaths);
+			// End of add on 13.05.2020	
+		},
+		// Start of add on 13.05.2020		
+		todayCount: function (oEvent) {
+			this.path = oEvent.getSource().getBindingContext().getPath();
+			this.ind = this.path.split('/')[3];
+			this.ind = parseInt(this.ind);
+			this.list = sap.ui.getCore().byId("todayCount");
+			this.delta = that.districtDat.districtData[this.ind];
+			// this.listModel = new sap.ui.model.json.JSONModel();
+			// this.listModel.setData({
+			// 	"todaysData": this.delta
+			// });
+			// this.list.setModel(this.listModel);
+			sap.ui.getCore().byId("fragCases").setValue(this.delta.delta.confirmed);
+			sap.ui.getCore().byId("fragDea").setValue(this.delta.delta.deceased);
+			sap.ui.getCore().byId("fragRec").setValue(this.delta.delta.recovered);
+			this.oDialog.open();
 		},
 
+		fragClose: function () {
+			this.oDialog.close();
+		},
+		// End of add on 13.05.2020
 		handleBack: function () {
 			this.getRouter().navTo("SubDetailScreen");
 		},
