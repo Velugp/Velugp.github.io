@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+	<Dialog title="Today's Count">
+		<form:SimpleForm editable="true" class="sapUiSizeCompact">
+			<form:content>
+				<!--<Table id="todayCount" items="{/todaysData}">-->
+				<!--	<columns>-->
+				<!--		<Column>-->
+				<!--			<Label text="Cases Confirmed Today" design="bold"></Label>-->
+				<!--		</Column>-->
+				<!--		<Column>-->
+				<!--			<Label text="Deceased Today" design="bold"></Label>-->
+				<!--		</Column>-->
+				<!--		<Column>-->
+				<!--			<Label text="Recovered Today" design="bold"></Label>-->
+				<!--		</Column>-->
+				<!--	</columns>-->
+				<!--	<items>-->
+				<!--		<ColumnListItem>-->
+				<!--			<cells>-->
+				<!--				<ObjectNumber number="{path:'/delta/>confirmed',formatter:'.formatter.groupNumber'}" state="Warning"></ObjectNumber>-->
+				<!--				<ObjectNumber number="{path:'/delta/>deceased',formatter:'.formatter.groupNumber'}" state="Error"></ObjectNumber>-->
+				<!--				<ObjectNumber number="{path:'/delta/>recovered',formatter:'.formatter.groupNumber'}" state="Success"></ObjectNumber>-->
+				<!--			</cells>-->
+				<!--		</ColumnListItem>-->
+				<!--	</items>-->
+				<!--</Table>-->
+				<Label text="CASES REPORTED TODAY" design="Bold"></Label>
+				<NumericContent id="fragCases" width="160px" formatterValue="true" valueColor="Critical" animateTextChange="true"></NumericContent>
+				<Label text="TOTAL NO OF DEATH TODAY" design="Bold"></Label>
+				<NumericContent id="fragDea" width="160px" formatterValue="true" valueColor="Error" animateTextChange="true"></NumericContent>
+				<Label text="TOTAL RECOVERED CASES TODAY" design="Bold"></Label>
+				<NumericContent id="fragRec" width="160px" formatterValue="true" valueColor="Good" animateTextChange="true"></NumericContent>
+			</form:content>
+		</form:SimpleForm>
+		<beginButton>
+			<Button text="Close" type="Ghost" press="fragClose"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
