@@ -41,6 +41,11 @@ sap.ui.define([
 				that.byId("numRecovered").setValue(that.formatter.groupNumber(data_total.recovered));
 				that.byId("numDeaths").setValue(that.formatter.groupNumber(data_total.deaths));
 				that.byId("numActive").setValue(that.formatter.groupNumber(data_total.active));
+// Start of add on 13.05.2020
+				that.byId("numTodayCases").setValue(that.formatter.groupNumber(data_total.deltaconfirmed));
+				that.byId("numTodayRec").setValue(that.formatter.groupNumber(data_total.deltarecovered));
+				that.byId("numTodayDea").setValue(that.formatter.groupNumber(data_total.deltadeaths));
+// End of add on 13.05.2020				
 				data_state = Data["statewise"];
 				// Sorter function				
 				data_state.sort(function (a, b) {
@@ -88,12 +93,18 @@ sap.ui.define([
 		},
 
 		tabPress: function (oEvent) {
+			debugger;
 			var stateTotal = {};
 			stateTotal.state = oEvent.getSource().getCells()[0].getText();
 			stateTotal.cCases = oEvent.getSource().getCells()[1].getNumber();
 			stateTotal.aCases = oEvent.getSource().getCells()[2].getNumber();
 			stateTotal.death = oEvent.getSource().getCells()[3].getNumber();
 			stateTotal.recovered = oEvent.getSource().getCells()[4].getNumber();
+// Start of add on 13.05.2020
+		    stateTotal.deltaconfirmed = oEvent.getSource().getCells()[5].getNumber();
+		    stateTotal.deltadeaths = oEvent.getSource().getCells()[6].getNumber();
+		    stateTotal.deltarecovered = oEvent.getSource().getCells()[7].getNumber();
+// End of add on 13.05.2020
 			var oJsonModel = new sap.ui.model.json.JSONModel();
 			oJsonModel.setData(stateTotal);
 			sap.ui.getCore().setModel(oJsonModel, "stateData");
