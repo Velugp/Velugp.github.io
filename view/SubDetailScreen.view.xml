@@ -19,6 +19,15 @@
 						<TileContent footer="Active Cases" footerColor="Critical">
 							<NumericContent id="numActive" valueColor="Critical" truncateValueTo="10"/>
 						</TileContent>
+						<TileContent footer="Cases Today" footerColor="Critical">
+							<NumericContent id="numTodayCases" valueColor="Neutral" truncateValueTo="10"/>
+						</TileContent>	
+						<TileContent footer="Recovered Today" footerColor="Critical">
+							<NumericContent id="numTodayRec" valueColor="Good" truncateValueTo="10"/>
+						</TileContent>	
+						<TileContent footer="Death's Today" footerColor="Critical">
+							<NumericContent id="numTodayDea" valueColor="Critical" truncateValueTo="10"/>
+						</TileContent>							
 					</HeaderContainer>
 				</f:content>
 			</f:SimpleForm>
@@ -51,15 +60,27 @@
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Recovered" design="Bold"></Label>
 								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Cases Today" design="Bold"></Label>
+								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Deaths Today" design="Bold"></Label>
+								</Column>
+								<Column demandPopin="true" minScreenWidth="400px">
+									<Label text="Recovered Today" design="Bold"></Label>
+								</Column>								
 							</columns>
 							<items>
 								<ColumnListItem type="Navigation" press="tabPress">
 									<cells>
 										<Text text="{state}"></Text>
-										<ObjectNumber  number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Information"></ObjectNumber>
+										<ObjectNumber number="{path:'confirmed',formatter:'.formatter.groupNumber'}" state="Information"></ObjectNumber>
 										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"></ObjectNumber>
 										<ObjectNumber number="{path:'deaths',formatter:'.formatter.groupNumber'}" state="Error"></ObjectNumber>
 										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"></ObjectNumber>
+										<ObjectNumber number="{path:'deltaconfirmed',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>
+										<ObjectNumber number="{path:'deltadeaths',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>
+										<ObjectNumber number="{path:'deltarecovered',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>								
 									</cells>
 								</ColumnListItem>
 							</items>
