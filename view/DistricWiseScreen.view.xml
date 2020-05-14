@@ -81,7 +81,7 @@
 										<ObjectNumber number="{path:'deceased',formatter:'.formatter.groupNumber'}" state="Error"/>
 										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"/>
 										<HBox>
-											<Button icon="sap-icon://check-availability" press="todayCount"></Button>
+											<Button icon="sap-icon://calendar" press="todayCount"></Button>
 										</HBox>
 									</cells>
 								</ColumnListItem>
