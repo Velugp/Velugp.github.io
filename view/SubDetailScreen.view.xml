@@ -1,6 +1,6 @@
 <mvc:View controllerName="fiori.controller.SubDetailScreen" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls">
-	<Page title="State Wise Stats" class="sapUiSizeCompact">
+	<Page title="StateWise Stats - Click on any State to get District Wise Data" class="sapUiSizeCompact">
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
