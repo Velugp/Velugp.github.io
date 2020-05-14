@@ -5,8 +5,9 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	"fiori/model/formatter",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/m/MessageBox"
+], function (BaseController, JSONModel, History, formatter, Filter, FilterOperator, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("fiori.controller.DistricWiseScreen", {
@@ -72,15 +73,21 @@ sap.ui.define([
 			this.ind = parseInt(this.ind);
 			this.list = sap.ui.getCore().byId("todayCount");
 			this.delta = that.districtDat.districtData[this.ind];
-			// this.listModel = new sap.ui.model.json.JSONModel();
-			// this.listModel.setData({
-			// 	"todaysData": this.delta
-			// });
-			// this.list.setModel(this.listModel);
 			sap.ui.getCore().byId("fragCases").setValue(this.delta.delta.confirmed);
 			sap.ui.getCore().byId("fragDea").setValue(this.delta.delta.deceased);
 			sap.ui.getCore().byId("fragRec").setValue(this.delta.delta.recovered);
-			this.oDialog.open();
+			if (this.delta.delta.confirmed == "0" && this.delta.delta.deceased == "0" && this.delta.delta.recovered == "0") {
+				MessageBox.show("NO UPDATE FOR NOW" , {
+					icon: "WARNING",
+					title: "NO UPDATE"
+				});
+				return;
+			} else {
+				debugger;
+				this.titleDist = this.delta.district.concat("'s Today Count");
+				sap.ui.getCore().byId("fragDist").setTitle(this.titleDist);
+				this.oDialog.open();
+			}
 		},
 
 		fragClose: function () {
