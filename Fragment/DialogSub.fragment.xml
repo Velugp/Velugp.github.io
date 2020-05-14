@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form">
+	<Dialog title="{this.State} Today's Count" id="dialogFrag">
+		<form:SimpleForm editable="true" class="sapUiSizeCompact">
+			<form:content>
+				<Label text="TIME STAMP OF LAST UPDATE" design="Bold"/>
+				<DateTimePicker editable="false" id="dpTime" value="{type:'sap.ui.model.type.DateTime', formatOptions: { style: 'long', strictParsing: true}}"/>				
+				<Label text="CASES REPORTED TODAY" design="Bold"></Label>
+				<NumericContent id="fragCasesSub" width="100px" formatterValue="true" valueColor="Critical" animateTextChange="true"></NumericContent>
+				<Label text="TOTAL NO OF DEATH TODAY" design="Bold"></Label>
+				<NumericContent id="fragDeaSub" width="100px" formatterValue="true" valueColor="Error" animateTextChange="true"></NumericContent>
+				<Label text="TOTAL RECOVERED CASES TODAY" design="Bold"></Label>
+				<NumericContent id="fragRecSub" width="100px" formatterValue="true" valueColor="Good" animateTextChange="true"></NumericContent>
+
+			</form:content>
+		</form:SimpleForm>
+		<beginButton>
+			<Button text="Close" type="Ghost" press="fragClose"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
