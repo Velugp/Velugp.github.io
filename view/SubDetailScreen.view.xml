@@ -1,7 +1,5 @@
 <mvc:View controllerName="fiori.controller.SubDetailScreen" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
-	xmlns:core="sap.ui.core"
-	xmlns:l="sap.ui.layout"
-	xmlns:viz="sap.viz.ui5.controls">
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls">
 	<Page title="State Wise Stats" class="sapUiSizeCompact">
 		<content>
 			<f:SimpleForm editable="true">
@@ -21,13 +19,13 @@
 						</TileContent>
 						<TileContent footer="Cases Today" footerColor="Critical">
 							<NumericContent id="numTodayCases" valueColor="Neutral" truncateValueTo="10"/>
-						</TileContent>	
+						</TileContent>
 						<TileContent footer="Recovered Today" footerColor="Critical">
 							<NumericContent id="numTodayRec" valueColor="Good" truncateValueTo="10"/>
-						</TileContent>	
+						</TileContent>
 						<TileContent footer="Death's Today" footerColor="Critical">
 							<NumericContent id="numTodayDea" valueColor="Critical" truncateValueTo="10"/>
-						</TileContent>							
+						</TileContent>
 					</HeaderContainer>
 				</f:content>
 			</f:SimpleForm>
@@ -57,18 +55,21 @@
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Deaths" design="Bold"></Label>
 								</Column>
-								<Column demandPopin="true" minScreenWidth="400px">
+								<Column minScreenWidth="400px">
 									<Label text="Recovered" design="Bold"></Label>
 								</Column>
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Cases Today" design="Bold"></Label>-->
+								<!--</Column>-->
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Deaths Today" design="Bold"></Label>-->
+								<!--</Column>-->
+								<!--<Column demandPopin="true" minScreenWidth="400px">-->
+								<!--	<Label text="Recovered Today" design="Bold"></Label>-->
+								<!--</Column>								-->
 								<Column demandPopin="true" minScreenWidth="400px">
-									<Label text="Cases Today" design="Bold"></Label>
+									<Label text="Today's Count" design="Bold"/>
 								</Column>
-								<Column demandPopin="true" minScreenWidth="400px">
-									<Label text="Deaths Today" design="Bold"></Label>
-								</Column>
-								<Column demandPopin="true" minScreenWidth="400px">
-									<Label text="Recovered Today" design="Bold"></Label>
-								</Column>								
 							</columns>
 							<items>
 								<ColumnListItem type="Navigation" press="tabPress">
@@ -78,9 +79,12 @@
 										<ObjectNumber number="{path:'active',formatter:'.formatter.groupNumber'}" state="Warning"></ObjectNumber>
 										<ObjectNumber number="{path:'deaths',formatter:'.formatter.groupNumber'}" state="Error"></ObjectNumber>
 										<ObjectNumber number="{path:'recovered',formatter:'.formatter.groupNumber'}" state="Success"></ObjectNumber>
-										<ObjectNumber number="{path:'deltaconfirmed',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>
-										<ObjectNumber number="{path:'deltadeaths',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>
-										<ObjectNumber number="{path:'deltarecovered',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>								
+										<!--<ObjectNumber number="{path:'deltaconfirmed',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>-->
+										<!--<ObjectNumber number="{path:'deltadeaths',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>-->
+										<!--<ObjectNumber number="{path:'deltarecovered',formatter:'.formatter.groupNumber'}" state="None"></ObjectNumber>-->
+										<HBox>
+											<Button icon="sap-icon://calendar" press="todayCountSub"></Button>
+										</HBox>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -90,7 +94,7 @@
 			</f:SimpleForm>
 			<f:SimpleForm>
 				<f:content>
-					<ScrollContainer horizontal="true" height="83%"> 
+					<ScrollContainer horizontal="true" height="83%">
 						<FlexBox justifyContent="Start" alignItems="Start" height="500px" width="700px">
 							<items>
 								<viz:VizFrame xmlns="sap.viz" id="idPieChart" vizType="pie"/>
@@ -98,7 +102,7 @@
 						</FlexBox>
 					</ScrollContainer>
 				</f:content>
-			</f:SimpleForm> 
+			</f:SimpleForm>
 		</content>
 		<footer>
 			<Bar>
