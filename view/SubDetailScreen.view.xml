@@ -55,7 +55,7 @@
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Deaths" design="Bold"></Label>
 								</Column>
-								<Column minScreenWidth="400px">
+								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Recovered" design="Bold"></Label>
 								</Column>
 								<!--<Column demandPopin="true" minScreenWidth="400px">-->
