@@ -4,7 +4,7 @@ sap.ui.define([
 	"fiori/model/formatter",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox"
-], function (BaseController, formatter, JSONModel,MessageBox) {
+], function (BaseController, formatter, JSONModel, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("fiori.controller.SubDetailScreen", {
@@ -42,10 +42,10 @@ sap.ui.define([
 						delete Data["statewise"][i];
 					}
 				}
-				that.byId("numconfirmed").setValue(that.formatter.groupNumber(data_total.confirmed));
-				that.byId("numRecovered").setValue(that.formatter.groupNumber(data_total.recovered));
-				that.byId("numDeaths").setValue(that.formatter.groupNumber(data_total.deaths));
-				that.byId("numActive").setValue(that.formatter.groupNumber(data_total.active));
+				that.byId("numconfirmed").setValue(that.formatter.convertShort(data_total.confirmed));
+				that.byId("numRecovered").setValue(that.formatter.convertShort(data_total.recovered));
+				that.byId("numDeaths").setValue(that.formatter.convertShort(data_total.deaths));
+				that.byId("numActive").setValue(that.formatter.convertShort(data_total.active));
 				// Start of add on 13.05.2020
 				that.byId("numTodayCases").setValue(that.formatter.groupNumber(data_total.deltaconfirmed));
 				that.byId("numTodayRec").setValue(that.formatter.groupNumber(data_total.deltarecovered));
@@ -62,7 +62,29 @@ sap.ui.define([
 				that.data_state = data_state;
 				that.oTab.setModel(oModel);
 				that.pieChart();
+				// Set Visibility of the Chart and Table
+				that.byId("tableState").setVisible(true);
+				that.byId("chartState").setVisible(true);
+				that.byId("tableState").setEnabled(false);
+				that.byId("chartState").setEnabled(true);
+				that.byId("simpleFormState").setVisible(true);
+				that.byId("flexState").setVisible(false);
 			});
+		},
+
+		// Toggle Chart vs Table
+		chartVisibleState: function () {
+			this.byId("flexState").setVisible(true);
+			this.byId("simpleFormState").setVisible(false);
+			this.byId("chartState").setEnabled(false);
+			this.byId("tableState").setEnabled(true);
+		},
+
+		tableVisibleState: function () {
+			this.byId("flexState").setVisible(false);
+			this.byId("simpleFormState").setVisible(true);
+			this.byId("chartState").setEnabled(false);
+			this.byId("chartState").setEnabled(true);
 		},
 
 		todayCountSub: function (oEvent) {
@@ -75,13 +97,13 @@ sap.ui.define([
 			sap.ui.getCore().byId("fragRecSub").setValue(this.deltaSub.deltarecovered);
 			sap.ui.getCore().byId("dpTime").setValue(this.deltaSub.lastupdatedtime);
 			if (this.deltaSub.deltaconfirmed == "0" && this.deltaSub.deltadeaths == "0" && this.deltaSub.deltarecovered == "0") {
-				MessageBox.show("Last Updated Time: "+ this.deltaSub.lastupdatedtime + "",{
-					icon:"ERROR",
-					title:"NO UPDATE"
+				MessageBox.show("Last Updated Time: " + this.deltaSub.lastupdatedtime + "", {
+					icon: "ERROR",
+					title: "NO UPDATE"
 				});
 				return;
 			} else {
-				this.title= this.deltaSub.state.concat("'s Today Count");
+				this.title = this.deltaSub.state.concat("'s Today Count");
 				sap.ui.getCore().byId("dialogFrag").setTitle(this.title);
 				this.oDialogSub.open();
 			}
@@ -152,6 +174,9 @@ sap.ui.define([
 			//      1.Get the id of the VizFrame		
 			var oVizFrame = this.getView().byId("idPieChart");
 
+			var oPopOver = this.getView().byId("idPopOverPieChartState");
+			oPopOver.connect(oVizFrame.getVizUid());
+
 			//      2.Create a JSON Model and set the data
 			var oModelPie = new sap.ui.model.json.JSONModel();
 
@@ -184,19 +209,17 @@ sap.ui.define([
 					text: "Confirmed Cases"
 				},
 				plotArea: {
-					colorPalette: d3.scale.category20().range(),
-					drawingEffect: "glossy"
+					// colorPalette: d3.scale.category20().range(),
+					// drawingEffect: "glossy"
 				},
 
 				toolTip: {
 					visible: true
-				}
+				},
 
-				// dataLabel: {
-				// 	visible: true,
-				// 	type: "value",
-				// 	hideWhenOverlap: false,
-				// }
+				dataLabel: {
+					visible: true
+				}
 
 			});
 
