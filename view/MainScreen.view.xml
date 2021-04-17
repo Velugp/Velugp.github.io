@@ -1,20 +1,22 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls" xmlns:core="sap.ui.core"
-	xmlns:vbm="sap.ui.vbm" xmlns:l="sap.ui.layout"
-	xmlns:vk="sap.ui.vk"  
-	controllerName="fiori.controller.MainScreen">
+	xmlns:vbm="sap.ui.vbm" xmlns:l="sap.ui.layout" xmlns:vk="sap.ui.vk" controllerName="fiori.controller.MainScreen"
+	xmlns:c="sap.suite.ui.commons">
 	<Page title="Global Corona Cases" class="sapUiSizeCompact">
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
 					<HeaderContainer height="17%" width="100%">
-						<TileContent footer="Cases Worldwide" footerColor="Neutral">
-							<NumericContent width="160px" id="numCases" valueColor="Neutral" truncateValueTo="10" formatterValue="true"/>
+						<TileContent footer="Total Cases Worldwide" footerColor="Neutral">
+							<NumericContent id="numCases" valueColor="Neutral" truncateValueTo="20"/>
 						</TileContent>
 						<TileContent footer="Recovered Worldwide" footerColor="Good">
-							<NumericContent id="numRecovered" valueColor="Good" truncateValueTo="10"/>
+							<NumericContent id="numRecovered" valueColor="Good" truncateValueTo="20"/>
+						</TileContent>
+						<TileContent footer="Active Cases Worldwide" footerColor="Critical">
+							<NumericContent id="numActive" valueColor="Critical" truncateValueTo="20"/>
 						</TileContent>
 						<TileContent footer="Deaths Worldwide" footerColor="Error">
-							<NumericContent id="numDeaths" valueColor="Error" truncateValueTo="10"/>
+							<NumericContent id="numDeaths" valueColor="Error" truncateValueTo="20"/>
 						</TileContent>
 						<TileContent footer="Affected Countries" footerColor="Critical">
 							<NumericContent id="numAffected" valueColor="Critical" truncateValueTo="10"/>
@@ -30,7 +32,16 @@
 					</Panel>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm editable="true">
+			<OverflowToolbar>
+				<content>
+					<ToolbarSpacer/>
+					<Button id="tableGlobe" type="Transparent" icon="sap-icon://table-view" iconFirst="true" width="auto" enabled="true" tooltip="Table"
+						iconDensityAware="false" press="tableVisibleGlobe"/>
+					<Button id="chartGlobe" type="Transparent" icon="sap-icon://bar-chart" iconFirst="true" width="auto" enabled="true" tooltip="Chart"
+						iconDensityAware="false" press="chartVisibleGlobe"/>
+				</content>
+			</OverflowToolbar>
+			<f:SimpleForm editable="true" id="simpleFormGlobe">
 				<f:content>
 					<ScrollContainer vertical="true" height="83%">
 						<Table id="mainTab" items="{path:'/addressModel',sorter: { path: 'cases', descending: true }}" growing="true" growingThreshold="10"
@@ -40,15 +51,7 @@
 									<content>
 										<Title text="Country"/>
 										<ToolbarSpacer/>
-										<SearchField id="searchCountry" width="50%" liveChange="onFilterCountry">
-											<!--   search="onFilterCountry" -->
-											<!--   placeholder="Search by Country Name" -->
-											<!--   enableSuggestions="true"-->
-											<!--suggest="onSuggest" suggestionItems="{ path: '/addressModel'}">-->
-											<!--<suggestionItems>-->
-											<!--	<SuggestionItem text="{country}" key="{country}"/>-->
-											<!--</suggestionItems>-->
-										</SearchField>
+										<SearchField id="searchCountry" width="50%" liveChange="onFilterCountry"></SearchField>
 									</content>
 								</Toolbar>
 							</headerToolbar>
@@ -84,41 +87,33 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-			<l:FixFlex class="fixFlexVertical">
+			
+			<l:FixFlex id="flexF2">
+				<l:flexContent>
+					<c:ChartContainer class="sapUiResponsiveContentPadding" id="chartContainer1" showFullScreen="true" showPersonalization="false"
+						autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange"
+						title="Covid Cases vs Countries">
+						<c:content>
+							<c:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart" id="chartId1">
+								<c:content>
+									<viz:Popover id="idPopOverPieChart"></viz:Popover>
+									<viz:VizFrame id="idpiechart" height="100%" width="100%" vizType="donut" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+								</c:content>
+							</c:ChartContainerContent>
+						</c:content>
+					</c:ChartContainer>
+				</l:flexContent>
+			</l:FixFlex>
+			<l:FixFlex class="fixFlexVertical" id="analyticalMapGlobe">
 				<l:flexContent>
 					<vbm:AnalyticMap id="worldMap" height="110%" width="125%" regionClick="onRegionClick" regionSelect="handleSelect"
-						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout"
-						initialPosition="0;10;0">
+						regionDeselect="handleDeselect" regions="{/mapData}" xmlns:l="sap.ui.layout" initialPosition="0;10;0">
 						<vbm:regions>
 							<vbm:Region code="{code}" color="{colour}"></vbm:Region>
 						</vbm:regions>
-					</vbm:AnalyticMap>	
+					</vbm:AnalyticMap>
 				</l:flexContent>
 			</l:FixFlex>
-			<Toolbar>
-				<ToolbarSpacer/>
-				<Button id="backToTable" icon="sap-icon://back-to-top" tooltip="Return to Table" enabled="true" press="onReturn"/>
-			</Toolbar>
-			<f:SimpleForm>
-				<f:content>
-					<ScrollContainer horizontal="true" height="100%">
-						<FlexBox justifyContent="Start" alignItems="Start" height="500px" width="500px">
-							<items>
-								<viz:VizFrame xmlns="sap.viz" id="idpiechart" vizType="pie" selectData="onClick"/>
-							</items>
-						</FlexBox>
-					</ScrollContainer>
-				</f:content>
-			</f:SimpleForm>
 		</content>
-		<footer>
-			<Bar>
-				<contentRight>
-					<Button text="Table" type="Transparent" icon="sap-icon://table-view" press="onTablePress"></Button>
-					<Button text="Map" type="Transparent" icon="sap-icon://map" press="onMapPress"></Button>
-					<Button text="Pie" type="Transparent" icon="sap-icon://pie-chart" press="onPiePress"></Button>
-				</contentRight>
-			</Bar>
-		</footer>
 	</Page>
 </mvc:View>
