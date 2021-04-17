@@ -1,6 +1,6 @@
 <mvc:View controllerName="fiori.controller.SubDetailScreen" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
-	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls">
-	<Page title="StateWise Stats - Click on any State to get District Wise Data" class="sapUiSizeCompact">
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls" xmlns:c="sap.suite.ui.commons">
+	<Page title="StateWise Stats - Click on any State to get District Wise Data" class="sapUiSizeCompact" showNavButton="true" navButtonPress="handleBack" >
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
@@ -29,7 +29,16 @@
 					</HeaderContainer>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm editable="true">
+			<OverflowToolbar >
+				<content>
+					<ToolbarSpacer/>
+					<Button id="tableState" type="Transparent" icon="sap-icon://table-view" iconFirst="true" width="auto" enabled="true" tooltip="Table"
+						iconDensityAware="false" press="tableVisibleState"/>
+					<Button id="chartState" type="Transparent" icon="sap-icon://bar-chart" iconFirst="true" width="auto" enabled="true" tooltip="Chart"
+						iconDensityAware="false" press="chartVisibleState"/>
+				</content>
+			</OverflowToolbar>
+			<f:SimpleForm editable="true" id="simpleFormState">
 				<f:content>
 					<ScrollContainer vertical="true" height="81%">
 						<Table id="subDetailsTab" items="{path:'/subDetailsModel'}" growing="true" growingThreshold="10" popinLayout="Block">
@@ -58,15 +67,6 @@
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Recovered" design="Bold"></Label>
 								</Column>
-								<!--<Column demandPopin="true" minScreenWidth="400px">-->
-								<!--	<Label text="Cases Today" design="Bold"></Label>-->
-								<!--</Column>-->
-								<!--<Column demandPopin="true" minScreenWidth="400px">-->
-								<!--	<Label text="Deaths Today" design="Bold"></Label>-->
-								<!--</Column>-->
-								<!--<Column demandPopin="true" minScreenWidth="400px">-->
-								<!--	<Label text="Recovered Today" design="Bold"></Label>-->
-								<!--</Column>								-->
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Today's Count" design="Bold"/>
 								</Column>
@@ -92,17 +92,23 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm>
-				<f:content>
-					<ScrollContainer horizontal="true" height="83%">
-						<FlexBox justifyContent="Start" alignItems="Start" height="500px" width="700px">
-							<items>
-								<viz:VizFrame xmlns="sap.viz" id="idPieChart" vizType="pie"/>
-							</items>
-						</FlexBox>
-					</ScrollContainer>
-				</f:content>
-			</f:SimpleForm>
+
+			<l:FixFlex id="flexState">
+				<l:flexContent>
+					<c:ChartContainer class="sapUiResponsiveContentPadding" id="chartContainerState" showFullScreen="true" showPersonalization="false"
+						autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange"
+						title="Total Cases Across Different States">
+						<c:content>
+							<c:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart" id="chartIdState">
+								<c:content>
+									<viz:Popover id="idPopOverPieChartState"></viz:Popover>
+									<viz:VizFrame id="idPieChart" height="100%" width="100%" vizType="donut" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+								</c:content>
+							</c:ChartContainerContent>
+						</c:content>
+					</c:ChartContainer>
+				</l:flexContent>
+			</l:FixFlex>
 		</content>
 		<footer>
 			<Bar>
