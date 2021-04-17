@@ -56,15 +56,38 @@ sap.ui.define([
 				that.oTab.setModel(oModel);
 				that.barChart();
 			});
-			that.byId("numConfirmed").setValue(sap.ui.getCore().getModel("stateData").oData.cCases);
-			that.byId("numRecovered").setValue(sap.ui.getCore().getModel("stateData").oData.recovered);
-			that.byId("numDeaths").setValue(sap.ui.getCore().getModel("stateData").oData.death);
-			that.byId("numActive").setValue(sap.ui.getCore().getModel("stateData").oData.aCases);
+			var cCases = sap.ui.getCore().getModel("stateData").oData.cCases;
+			cCases = cCases.replace(/[^\d\.\-]/g, "");
+			cCases = parseFloat(cCases);
+			that.byId("numConfirmed").setValue(that.formatter.convertShort(cCases));
+			var recovered = sap.ui.getCore().getModel("stateData").oData.recovered;
+			recovered = recovered.replace(/[^\d\.\-]/g, "");
+			recovered = parseFloat(recovered);
+			that.byId("numRecovered").setValue(that.formatter.convertShort(recovered));
+			var death = sap.ui.getCore().getModel("stateData").oData.death;
+			death = death.replace(/[^\d\.\-]/g, "");
+			death = parseFloat(death);
+			that.byId("numDeaths").setValue(that.formatter.convertShort(death));
+			var aCases = sap.ui.getCore().getModel("stateData").oData.aCases;
+			aCases = aCases.replace(/[^\d\.\-]/g, "");
+			aCases = parseFloat(aCases);
+			that.byId("numActive").setValue(that.formatter.convertShort(aCases));
+			// that.byId("numConfirmed").setValue(sap.ui.getCore().getModel("stateData").oData.cCases);
+			// that.byId("numRecovered").setValue(sap.ui.getCore().getModel("stateData").oData.recovered);
+			// that.byId("numDeaths").setValue(sap.ui.getCore().getModel("stateData").oData.death);
+			// that.byId("numActive").setValue(sap.ui.getCore().getModel("stateData").oData.aCases);
 			// Start of add on 13.05.2020
 			that.byId("numTodayCases").setValue(sap.ui.getCore().getModel("stateData").oData.deltaconfirmed);
 			that.byId("numTodayRec").setValue(sap.ui.getCore().getModel("stateData").oData.deltarecovered);
 			that.byId("numTodayDea").setValue(sap.ui.getCore().getModel("stateData").oData.deltadeaths);
 			// End of add on 13.05.2020	
+		// Set Visibility of the Chart and Table
+			that.byId("tableDist").setVisible(true);
+			that.byId("chartDist").setVisible(true);
+			that.byId("tableDist").setEnabled(false);
+			that.byId("chartDist").setEnabled(true);
+			that.byId("flexDist").setVisible(false);
+			that.byId("simpleFormDist").setVisible(true);
 		},
 		// Start of add on 13.05.2020		
 		todayCount: function (oEvent) {
@@ -77,17 +100,31 @@ sap.ui.define([
 			sap.ui.getCore().byId("fragDea").setValue(this.delta.delta.deceased);
 			sap.ui.getCore().byId("fragRec").setValue(this.delta.delta.recovered);
 			if (this.delta.delta.confirmed == "0" && this.delta.delta.deceased == "0" && this.delta.delta.recovered == "0") {
-				MessageBox.show("NO UPDATE FOR NOW" , {
+				MessageBox.show("NO UPDATE FOR NOW", {
 					icon: "WARNING",
 					title: "NO UPDATE"
 				});
 				return;
 			} else {
-				debugger;
 				this.titleDist = this.delta.district.concat("'s Today Count");
 				sap.ui.getCore().byId("fragDist").setTitle(this.titleDist);
 				this.oDialog.open();
 			}
+		},
+
+		// Toggle Chart vs Table
+		chartVisibleDist: function () {
+			this.byId("flexDist").setVisible(true);
+			this.byId("simpleFormDist").setVisible(false);
+			this.byId("chartDist").setEnabled(false);
+			this.byId("tableDist").setEnabled(true);
+		},
+
+		tableVisibleDist: function () {
+			this.byId("flexDist").setVisible(false);
+			this.byId("simpleFormDist").setVisible(true);
+			this.byId("chartDist").setEnabled(false);
+			this.byId("chartDist").setEnabled(true);
 		},
 
 		fragClose: function () {
@@ -120,6 +157,9 @@ sap.ui.define([
 		barChart: function () {
 			//      1.Get the id of the VizFrame		
 			var oVizFrame = this.getView().byId("idBarChart");
+			
+			var oPopOver = this.getView().byId("idPopOverPieChartDist");
+			oPopOver.connect(oVizFrame.getVizUid());			
 
 			//      2.Create a JSON Model and set the data
 			var oModelPie = new sap.ui.model.json.JSONModel();
@@ -153,19 +193,17 @@ sap.ui.define([
 					text: "Total Cases"
 				},
 				plotArea: {
-					colorPalette: d3.scale.category20().range(),
-					drawingEffect: "glossy"
+					// colorPalette: d3.scale.category20().range(),
+					// drawingEffect: "glossy"
 				},
 
 				toolTip: {
 					visible: true
-				}
+				},
 
-				// dataLabel: {
-				// 	visible: true,
-				// 	type: "value",
-				// 	hideWhenOverlap: false,
-				// }
+				dataLabel: {
+					visible: true,
+				}
 
 			});
 
