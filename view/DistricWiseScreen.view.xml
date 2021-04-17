@@ -1,12 +1,13 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="fiori.controller.DistricWiseScreen"
-	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls">
-	<Page title="District Wise Stats" id="idPage" class="sapUiSizeCompact">
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:viz="sap.viz.ui5.controls" xmlns:c="sap.suite.ui.commons"
+	xmlns:l="sap.ui.layout">
+	<Page title="District Wise Stats" id="idPage" class="sapUiSizeCompact" navButtonPress="handleBack" showNavButton="true">
 		<content>
 			<f:SimpleForm editable="true">
 				<f:content>
 					<HeaderContainer height="19%" width="100%">
 						<TileContent footer="Total Cases" footerColor="Neutral">
-							<NumericContent width="160px" id="numConfirmed" valueColor="Neutral" truncateValueTo="10" formatterValue="true"/>
+							<NumericContent id="numConfirmed" valueColor="Neutral" truncateValueTo="10" formatterValue="true"/>
 						</TileContent>
 						<TileContent footer="Recovered Cases" footerColor="Good">
 							<NumericContent id="numRecovered" valueColor="Good" truncateValueTo="10"/>
@@ -29,7 +30,16 @@
 					</HeaderContainer>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm editable="true">
+			<OverflowToolbar >
+				<content>
+					<ToolbarSpacer/>
+					<Button id="tableDist" type="Transparent" icon="sap-icon://table-view" iconFirst="true" width="auto" enabled="true" tooltip="Table"
+						iconDensityAware="false" press="tableVisibleDist"/>
+					<Button id="chartDist" type="Transparent" icon="sap-icon://bar-chart" iconFirst="true" width="auto" enabled="true" tooltip="Chart"
+						iconDensityAware="false" press="chartVisibleDist"/>
+				</content>
+			</OverflowToolbar>
+			<f:SimpleForm editable="true" id="simpleFormDist">
 				<f:content>
 					<ScrollContainer vertical="true" height="81%">
 						<Table id="districtTab" items="{path:'/districtModel/districtData',sorter: { path: 'confirmed', descending: true }}" growing="true"
@@ -61,7 +71,7 @@
 								</Column>
 								<Column demandPopin="true" minScreenWidth="400px">
 									<Label text="Today's Count" design="Bold"/>
-								</Column>								
+								</Column>
 								<!--<Column demandPopin="true" minScreenWidth="400px">-->
 								<!--	<Label text="Today's Cases" design="Bold"/>-->
 								<!--</Column>-->
@@ -90,17 +100,22 @@
 					</ScrollContainer>
 				</f:content>
 			</f:SimpleForm>
-			<f:SimpleForm>
-				<f:content>
-					<ScrollContainer horizontal="true" height="83%">
-						<FlexBox justifyContent="Start" alignItems="Start" height="500px" width="500px">
-							<items>
-								<viz:VizFrame xmlns="sap.viz" id="idBarChart" vizType="pie"/>
-							</items>
-						</FlexBox>
-					</ScrollContainer>
-				</f:content>
-			</f:SimpleForm>
+			<l:FixFlex id="flexDist">
+				<l:flexContent>
+					<c:ChartContainer class="sapUiResponsiveContentPadding" id="chartContainerDist" showFullScreen="true" showPersonalization="false"
+						autoAdjustHeight="true" personalizationPress="attachPersonalizationPress" contentChange="attachContentChange"
+						title="Total Cases Across Different District">
+						<c:content>
+							<c:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart" id="chartIdDist">
+								<c:content>
+									<viz:Popover id="idPopOverPieChartDist"></viz:Popover>
+									<viz:VizFrame id="idBarChart" height="100%" width="100%" vizType="donut" uiConfig="{applicationSet:'fiori'}"></viz:VizFrame>
+								</c:content>
+							</c:ChartContainerContent>
+						</c:content>
+					</c:ChartContainer>
+				</l:flexContent>
+			</l:FixFlex>
 		</content>
 		<footer>
 			<Bar>
