@@ -13,6 +13,13 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function () {
+			// Set Visibility of the Chart and Table
+			this.byId("tableGlobe").setVisible(true);
+			this.byId("chartGlobe").setVisible(true);
+			this.byId("tableGlobe").setEnabled(false);
+			this.byId("chartGlobe").setEnabled(true);
+			this.byId("flexF2").setVisible(false);
+			this.byId("analyticalMapGlobe").setVisible(false);
 
 			var oTab = this.byId("mainTab");
 			this.oTab = oTab;
@@ -50,10 +57,13 @@ sap.ui.define([
 							var dataWorld = [];
 							dataWorld = Data[i];
 							var cases = dataWorld.cases;
-							cases = that.formatter.groupNumber(cases);
+							// cases = that.formatter.groupNumber(cases);
+							debugger;
+							cases = that.formatter.convertShort(cases);
 							that.byId("numCases").setValue(cases);
-							that.byId("numRecovered").setValue(that.formatter.groupNumber(dataWorld.recovered));
-							that.byId("numDeaths").setValue(that.formatter.groupNumber(dataWorld.deaths));
+							that.byId("numRecovered").setValue(that.formatter.convertShort(dataWorld.recovered));
+							that.byId("numDeaths").setValue(that.formatter.convertShort(dataWorld.deaths));
+							that.byId("numActive").setValue(that.formatter.convertShort(dataWorld.active));
 							var jsonWorld = new sap.ui.model.json.JSONModel();
 							jsonWorld.setData({
 								"totalModel": dataWorld
@@ -89,6 +99,23 @@ sap.ui.define([
 			var oView = this.getView();
 			oView.setModel(this.oModel);
 			this.oSF = oView.byId("searchCountry");
+		},
+		
+		// Toggle Chart vs Table
+		chartVisibleGlobe: function () {
+			this.byId("flexF2").setVisible(true);
+			this.byId("analyticalMapGlobe").setVisible(true);
+			this.byId("simpleFormGlobe").setVisible(false);
+			this.byId("chartGlobe").setEnabled(false);
+			this.byId("tableGlobe").setEnabled(true);
+		},
+
+		tableVisibleGlobe: function () {
+			this.byId("flexF2").setVisible(false);
+			this.byId("analyticalMapGlobe").setVisible(false);
+			this.byId("simpleFormGlobe").setVisible(true);
+			this.byId("tableGlobe").setEnabled(false);
+			this.byId("chartGlobe").setEnabled(true);
 		},
 
 		onAfterRendering: function () {
@@ -172,6 +199,9 @@ sap.ui.define([
 			//      1.Get the id of the VizFrame		
 			var oVizFrame = this.getView().byId("idpiechart");
 
+			var oPopOver = this.getView().byId("idPopOverPieChart");
+			oPopOver.connect(oVizFrame.getVizUid());
+
 			//      2.Create a JSON Model and set the data
 			var oModelPie = new sap.ui.model.json.JSONModel();
 
@@ -201,14 +231,19 @@ sap.ui.define([
 			//      4.Set Viz properties
 			oVizFrame.setVizProperties({
 				title: {
-					text: "Pie Chart wit Navigation"
+					text: "Covid cases distribution across globe"
 				},
 				plotArea: {
-					colorPalette: d3.scale.category20().range(),
-					drawingEffect: "glossy"
+					// colorPalette: d3.scale.category20().range(),
+					// drawingEffect: "glossy"
 				},
 				toolTip: {
-					visible: false
+					visible: true
+				},
+
+				dataLabel: {
+					visible: true,
+					showTotal: true
 				}
 			});
 
@@ -942,7 +977,7 @@ sap.ui.define([
 		onReturn: function () {
 			this.byId("btnIndia").focus();
 		},
-		
+
 		onTablePress: function () {
 			this.byId("btnIndia").focus();
 		},
@@ -953,6 +988,6 @@ sap.ui.define([
 
 		onMapPress: function () {
 			this.byId("backToTable").focus();
-		}		
+		}
 	});
 });
