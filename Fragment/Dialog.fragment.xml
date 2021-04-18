@@ -3,8 +3,8 @@
 		<form:SimpleForm editable="true" class="sapUiSizeCompact">
 			<form:content>
 				<Label text="CASES REPORTED TODAY" design="Bold"></Label>
-				<NumericContent id="fragCases" truncateValueTo="10" formatterValue="true" valueColor="Critical" animateTextChange="true"
-				icon="sap-icon://wounds-doc"></NumericContent>
+				<NumericContent id="fragCases" truncateValueTo="18" formatterValue="true" valueColor="Critical" animateTextChange="true"
+				icon="sap-icon://wounds-doc" width="150%"></NumericContent>
 				<Label text="TOTAL NO OF DEATH TODAY" design="Bold"></Label>
 				<NumericContent id="fragDea" truncateValueTo="10" formatterValue="true" valueColor="Error" animateTextChange="true"
 				icon="sap-icon://bed"></NumericContent>
