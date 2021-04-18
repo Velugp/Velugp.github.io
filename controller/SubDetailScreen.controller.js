@@ -92,9 +92,9 @@ sap.ui.define([
 			this.ind = this.path.split('/')[2];
 			this.ind = parseInt(this.ind);
 			this.deltaSub = this.oModel.oData.subDetailsModel[this.ind];
-			sap.ui.getCore().byId("fragCasesSub").setValue(this.deltaSub.deltaconfirmed);
-			sap.ui.getCore().byId("fragDeaSub").setValue(this.deltaSub.deltadeaths);
-			sap.ui.getCore().byId("fragRecSub").setValue(this.deltaSub.deltarecovered);
+			sap.ui.getCore().byId("fragCasesSub").setValue(this.formatter.groupNumber(this.deltaSub.deltaconfirmed));
+			sap.ui.getCore().byId("fragDeaSub").setValue(this.formatter.groupNumber(this.deltaSub.deltadeaths));
+			sap.ui.getCore().byId("fragRecSub").setValue(this.formatter.groupNumber(this.deltaSub.deltarecovered));
 			sap.ui.getCore().byId("dpTime").setValue(this.deltaSub.lastupdatedtime);
 			if (this.deltaSub.deltaconfirmed == "0" && this.deltaSub.deltadeaths == "0" && this.deltaSub.deltarecovered == "0") {
 				MessageBox.show("Last Updated Time: " + this.deltaSub.lastupdatedtime + "", {
