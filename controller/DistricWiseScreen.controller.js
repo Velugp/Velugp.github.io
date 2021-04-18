@@ -96,9 +96,9 @@ sap.ui.define([
 			this.ind = parseInt(this.ind);
 			this.list = sap.ui.getCore().byId("todayCount");
 			this.delta = that.districtDat.districtData[this.ind];
-			sap.ui.getCore().byId("fragCases").setValue(this.delta.delta.confirmed);
-			sap.ui.getCore().byId("fragDea").setValue(this.delta.delta.deceased);
-			sap.ui.getCore().byId("fragRec").setValue(this.delta.delta.recovered);
+			sap.ui.getCore().byId("fragCases").setValue(this.formatter.groupNumber(this.delta.delta.confirmed));
+			sap.ui.getCore().byId("fragDea").setValue(this.formatter.groupNumber(this.delta.delta.deceased));
+			sap.ui.getCore().byId("fragRec").setValue(this.formatter.groupNumber(this.delta.delta.recovered));
 			if (this.delta.delta.confirmed == "0" && this.delta.delta.deceased == "0" && this.delta.delta.recovered == "0") {
 				MessageBox.show("NO UPDATE FOR NOW", {
 					icon: "WARNING",
@@ -222,33 +222,7 @@ sap.ui.define([
 			oVizFrame.addFeed(feedSize);
 			oVizFrame.addFeed(feedColor);
 		},
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf fiori.view.district
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf fiori.view.district
-		 */
-		// onAfterRendering: function() {
-		// $('document').ready(function () {
-		// 	this.byId("searchDistrict").focus();
-		// });
-		// }
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf fiori.view.district
-		 */
-		//	onExit: function() {
-		//
-		//	}
+		
 
 	});
 
