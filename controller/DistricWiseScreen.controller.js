@@ -77,9 +77,9 @@ sap.ui.define([
 			// that.byId("numDeaths").setValue(sap.ui.getCore().getModel("stateData").oData.death);
 			// that.byId("numActive").setValue(sap.ui.getCore().getModel("stateData").oData.aCases);
 			// Start of add on 13.05.2020
-			that.byId("numTodayCases").setValue(sap.ui.getCore().getModel("stateData").oData.deltaconfirmed);
-			that.byId("numTodayRec").setValue(sap.ui.getCore().getModel("stateData").oData.deltarecovered);
-			that.byId("numTodayDea").setValue(sap.ui.getCore().getModel("stateData").oData.deltadeaths);
+			that.byId("numTodayCases").setValue(this.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.deltaconfirmed));
+			that.byId("numTodayRec").setValue(this.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.deltarecovered));
+			that.byId("numTodayDea").setValue(this.formatter.groupNumber(sap.ui.getCore().getModel("stateData").oData.deltadeaths));
 			// End of add on 13.05.2020	
 		// Set Visibility of the Chart and Table
 			that.byId("tableDist").setVisible(true);
